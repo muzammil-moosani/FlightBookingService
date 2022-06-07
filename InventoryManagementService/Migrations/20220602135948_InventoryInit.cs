@@ -26,7 +26,7 @@ namespace InventoryManagementService.Migrations
                     NoOfNonBusinessSeats = table.Column<int>(nullable: false),
                     TicketCharges = table.Column<double>(nullable: false),
                     NoOfRows = table.Column<int>(nullable: false),
-                    Meal = table.Column<bool>(nullable: true)
+                    Meal = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

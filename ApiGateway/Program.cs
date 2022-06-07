@@ -15,6 +15,7 @@ namespace ApiGateway
     {
         public static void Main(string[] args)
         {
+            //CreateWebHostBuilder(args).Build().Run();
             IWebHostBuilder builder = new WebHostBuilder();
             builder.ConfigureServices(s =>
             {
@@ -23,12 +24,17 @@ namespace ApiGateway
             builder.UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:9000");
-           // CreateWebHostBuilder(args).Build().Run();
+                .UseUrls("http://localhost:44338");
+            var host = builder.Build();
+            host.Run();
         }
 
         //public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         //    WebHost.CreateDefaultBuilder(args)
-        //        .UseStartup<Startup>();
+        //    .ConfigureAppConfiguration((host, config) =>
+        //    {
+        //        config.AddJsonFile("configuration.json");
+        //    })
+        //    .UseStartup<Startup>();
     }
 }

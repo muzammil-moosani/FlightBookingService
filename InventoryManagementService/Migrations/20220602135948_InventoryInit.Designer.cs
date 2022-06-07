@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManagementService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220530130210_InventoryInit")]
+    [Migration("20220602135948_InventoryInit")]
     partial class InventoryInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace InventoryManagementService.Migrations
 
                     b.Property<string>("Instrument");
 
-                    b.Property<bool?>("Meal");
+                    b.Property<string>("Meal");
 
                     b.Property<int>("NoOfBusinessSeats");
 

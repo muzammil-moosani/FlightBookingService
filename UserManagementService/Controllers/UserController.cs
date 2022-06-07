@@ -7,6 +7,7 @@ using UserManagementService.Models;
 
 namespace UserManagementService.Controllers
 {
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         private IUserRepository user;
@@ -15,49 +16,43 @@ namespace UserManagementService.Controllers
         {
             user = _user;
         }
-        [HttpGet]
-        [Route("User/GetUserByUserId")]
+        [HttpGet("GetUserByUserId/{userId}")]
         public UserDetail GetUserByUserId(int userId)
         {
             return user.GetUserByUserId(userId);
         }
         [HttpGet]
-        [Route("User/GetAllUsers")]
         public IEnumerable<UserDetail> GetAllUsers()
         {
             return user.GetAllUsers();
         }
 
-        [HttpPost]
-        [Route("User/RegisterUser")]
+        [HttpPost("RegisterUser/{userDetail}")]
         public UserDetail RegisterUser([FromBody]UserDetail userDetail)
         {
             return user.RegisterUser(userDetail);
         }
 
-        [HttpDelete]
-        [Route("User/DeleteUser")]
+        [HttpDelete("DeleteUser/{userId}")]
         public UserDetail DeleteUser(int userId)
         {
             return user.DeleteUser(userId);
         }
 
-        [HttpPut]
-        [Route("User/UpdateUser")]
+        [HttpPut("UpdateUser/{changeUser}")]
         public UserDetail UpdateUser([FromBody]UserDetail changeUser)
         {
             return user.UpdateUser(changeUser);
         }
 
-        [HttpGet]
+        [HttpGet("VerifyUser/{userDetail}")]
         [Route("User/VerifyUser")]
         public bool VerifyUser([FromBody]UserDetail userDetail)
         {
             return user.VerifyUser(userDetail);
         }
 
-        [HttpGet]
-        [Route("User/VerifyAdmin")]
+        [HttpGet("VerifyAdmin/{userDetail}")]
         public bool VerifyAdmin([FromBody] UserDetail userDetail)
         {
             return user.VerifyAdmin(userDetail);

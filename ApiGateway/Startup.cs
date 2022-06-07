@@ -16,27 +16,29 @@ namespace ApiGateway
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public IConfiguration Configuration { get; }
         public Startup(IHostingEnvironment env)
         {
+            //Configuration = configuration;
             var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder();
             builder.SetBasePath(env.ContentRootPath)
-                .AddJsonFile("configuration.json",optional : false, reloadOnChange : true);
+                .AddJsonFile("configuration.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
-        public IConfiguration Configuration { get; }
+        
         public void ConfigureServices(IServiceCollection services)
         {
-            Action<ConfigurationBuilderCachePart>setting = (xx) =>
-             {
-                 xx.WithMicrosoftLogging(yy =>
-                 {
-                     yy.AddConsole(LogLevel.Debug);
-                 }).WithDictionaryHandle();
- 
-             };
-            services.AddOcelot((IConfigurationRoot)Configuration,setting);
+            Action<ConfigurationBuilderCachePart> setting = (xx) =>
+              {
+                  xx.WithMicrosoftLogging(yy =>
+                  {
+                      yy.AddConsole(LogLevel.Debug);
+                  }).WithDictionaryHandle();
+
+              };
+            services.AddOcelot((IConfigurationRoot)Configuration, setting);
+            //services.AddOcelot(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,12 +48,10 @@ namespace ApiGateway
             {
                 app.UseDeveloperExceptionPage();
             }
-
             await app.UseOcelot();
-
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response.WriteAsync("Hello APIGateway World!");
             });
         }
     }

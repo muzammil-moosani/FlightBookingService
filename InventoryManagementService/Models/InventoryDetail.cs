@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,6 +23,6 @@ namespace InventoryManagementService.Models
         public int NoOfNonBusinessSeats { get; set; }
         public double TicketCharges { get; set; }
         public int NoOfRows { get; set; }
-        public bool? Meal { get; set; }
+        public string Meal { get; set; }
     }
 }

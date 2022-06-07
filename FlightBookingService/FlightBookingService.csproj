@@ -24,4 +24,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AirlineService\AirlineService.csproj" />
+    <ProjectReference Include="..\InventoryManagementService\InventoryManagementService.csproj" />
+  </ItemGroup>
+
 </Project>

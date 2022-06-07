@@ -1,0 +1,27 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/user",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44333
+        }
+      ],
+          "UpstreamPathTemplate": "/getUser",
+          "UpstreamHttpMethod": [ "Get" ]
+        },
+    {
+      "DownstreamPathTemplate": "/api/user/GetUserByUserId/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 44333,
+      "UpstreamPathTemplate": "/GetUserByUserId/{userId}",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:25960"
+  }
+}

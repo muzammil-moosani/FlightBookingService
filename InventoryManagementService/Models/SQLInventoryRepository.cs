@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,27 +15,38 @@ namespace InventoryManagementService.Models
         }
         public InventoryDetail AddInventory(InventoryDetail inventory)
         {
-            context.InventoryDetail.Add()
+            context.InventoryDetail.Add(inventory);
+            context.SaveChanges();
+            return inventory;
         }
 
         public InventoryDetail DeleteInventory(int inventoryId)
         {
-            throw new NotImplementedException();
+            InventoryDetail inventoryDetail = context.InventoryDetail.Find(inventoryId);
+            if(inventoryDetail != null)
+            {
+                context.Remove(inventoryDetail);
+                context.SaveChanges();
+            }
+            return inventoryDetail;
         }
 
         public IEnumerable<InventoryDetail> GetAllInventories()
         {
-            throw new NotImplementedException();
+            return context.InventoryDetail;
         }
 
         public InventoryDetail GetInventoryById(int inventoryId)
         {
-            throw new NotImplementedException();
+            return context.InventoryDetail.Find(inventoryId);
         }
 
         public InventoryDetail UpdateInventory(InventoryDetail changeInventory)
         {
-            throw new NotImplementedException();
+            var details = context.InventoryDetail.Attach(changeInventory);
+            details.State = EntityState.Modified;
+            context.SaveChanges();
+            return changeInventory;
         }
     }
 }

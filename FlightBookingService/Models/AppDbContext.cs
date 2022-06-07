@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using InventoryManagementService.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace FlightBookingService.Models
 
         }
         public DbSet<BookingDetail> BookingDetails { get; set; }
+        public DbSet<InventoryDetail> InventoryDetail { get; set; }
+        public DbSet<PassengerDetail> PassengerDetail { get; set; }
     }
 }

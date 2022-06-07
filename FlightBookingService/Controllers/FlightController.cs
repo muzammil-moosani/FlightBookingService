@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FlightBookingService.Models;
+using InventoryManagementService.Models;
 
 namespace FlightBookingService.Controllers
 {
@@ -14,6 +15,13 @@ namespace FlightBookingService.Controllers
         public FlightController(IFlightRepository _flight)
         {
             flight = _flight;
+        }
+
+        [HttpGet]
+        [Route("Flight/SearchFlight")]
+        public IEnumerable<InventoryDetail> SearchFlight([FromBody] SearchFlightDetail detail)
+        {
+            return flight.SearchFlight(detail);
         }
 
         [HttpGet]
@@ -31,7 +39,7 @@ namespace FlightBookingService.Controllers
 
         [HttpPost]
         [Route("Flight/AddBooking")]
-        public BookingDetail AddBooking([FromBody]BookingDetail detail)
+        public string AddBooking([FromBody]BookingPassengerDetails detail)
         {            
             return flight.AddBooking(detail);
         }

@@ -35,7 +35,7 @@ namespace InventoryManagementService.Migrations
 
                     b.Property<string>("Instrument");
 
-                    b.Property<bool?>("Meal");
+                    b.Property<string>("Meal");
 
                     b.Property<int>("NoOfBusinessSeats");
 
