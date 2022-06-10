@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AirlineService.Migrations
+namespace FlightBookingService.Migrations
 {
-    public partial class AirlinesInits : Migration
+    public partial class FlightInit4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "ContactNumber",
-                table: "AirlineDetail",
+                name: "Name",
+                table: "PassengerDetail",
                 nullable: true,
                 oldClrType: typeof(int));
         }
@@ -16,8 +16,8 @@ namespace AirlineService.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
-                name: "ContactNumber",
-                table: "AirlineDetail",
+                name: "Name",
+                table: "PassengerDetail",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);

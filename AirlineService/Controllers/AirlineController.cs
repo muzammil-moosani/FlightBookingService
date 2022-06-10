@@ -1,6 +1,7 @@
 ﻿using AirlineService.Models;
 using FlightBookingService.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace AirlineService.Controllers
 {
+    [Route("api/[controller]")]
     public class AirlineController : Controller
     {
         private IAirlineRepository airline;
@@ -18,41 +20,36 @@ namespace AirlineService.Controllers
         }
 
         [HttpGet]
-        [Route("Airline/GetAirlineById")]
+        [Route("GetAirlineById")]
         public AirlineDetail GetAirlineById(int airlineId)
         {
             return airline.GetAirlineById(airlineId);
         }
         [HttpGet]
-        [Route("Airline/GetAllAirlines")]
         public IEnumerable<AirlineDetail> GetAllAirlines()
         {
             return airline.GetAllAirlines();
         }
 
-        [HttpPost]
-        [Route("Airline/AddAirline")]
+        [HttpPost("AddAirline")]
         public AirlineDetail AddAirline([FromBody]AirlineDetail detail)
         {
             return airline.AddAirline(detail);
         }
 
-        [HttpDelete]
-        [Route("Airline/DeleteAirline")]
+        [HttpDelete("DeleteAirline")]
         public AirlineDetail DeleteAirline(int airlineId)
         {
             return airline.DeleteAirline(airlineId);
         }
 
-        [HttpPut]
-        [Route("Airline/UpdateAirline")]
+        [HttpPut("UpdateAirline")]
         public AirlineDetail UpdateAirline([FromBody]AirlineDetail changeAirline)
         {
             return airline.UpdateAirline(changeAirline);
         }
 
-        [HttpPut]
-        [Route("Airline/BlockAirline")]
+        [HttpPut("BlockAirline")]
         public bool BlockAirline(int airlineId)
         {
             return airline.BlockAirline(airlineId);

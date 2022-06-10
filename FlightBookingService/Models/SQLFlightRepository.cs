@@ -1,6 +1,4 @@
-﻿using AirlineService.Models;
-using InventoryManagementService.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,60 +13,139 @@ namespace FlightBookingService.Models
         {
             this.context = context;
         }
-        public string AddBooking(BookingPassengerDetails booking)
+        public string AddBooking(BookingDetail booking)
         {
             Random r = new Random();
             string pnr = r.Next(100, 50000).ToString();
-            //pnr = booking.BookingId + pnr + booking.BookingId;
-
-            //context.BookingDetails.Add(booking);
-
-            //foreach(var passenger in booking.PassengerDetails)
-            //{
-            //    var pass = new PassengerDetail()
-            //    {
-            //        BookingId = booking.BookingId,
-            //        Name = passenger.Name,
-            //        Age = passenger.Age,
-            //        Gender = passenger.Gender,
-            //        SeatNo = passenger.SeatNo
-            //    };
-            //    context.PassengerDetail.Add(pass);
-            //}
-            //context.SaveChanges();
+            booking.PNR = pnr;
+            context.BookingDetail.Add(booking);
+            foreach (PassengerDetail passenger in booking.PassengerDetails.ToList())
+            {
+                context.PassengerDetail.Add(passenger);
+            }
+            context.SaveChanges();
             return pnr;
         }
 
-        public BookingDetail DeleteBooking(int bookingId)
+        public BookingDetail DeleteBooking(string pnr)
         {
-            BookingDetail details = context.BookingDetails.Find(bookingId);
+            BookingDetail details = context.BookingDetail.FirstOrDefault(x => x.PNR == pnr);
             if (details != null)
             {
+                List<PassengerDetail> passengerDetails = context.PassengerDetail.Where(x => x.BookingId == details.BookingId).ToList();
+                if (passengerDetails.Any())
+                    context.PassengerDetail.RemoveRange(passengerDetails);
                 context.Remove(details);
                 context.SaveChanges();
             }
             return details;
         }
 
-        public IEnumerable<BookingDetail> GetBookingDetailsByUserId(int id)
+        public BookingDetail GetBookingDetailsByBookingId(int bookingId)
         {
-            IEnumerable<BookingDetail> details = context.BookingDetails;
-            return details.Where(n => n.UserId == id);
+            var booking = (from b in context.BookingDetail
+                                     where b.BookingId==bookingId
+                           select new BookingDetail
+                           {
+                               BookingId = b.BookingId,
+                               InventoryId = b.InventoryId,
+                               FlightNumber = b.FlightNumber,
+                               UserName = b.UserName,
+                               Email = b.Email,
+                               FromPlace = b.FromPlace,
+                               ToPlace = b.ToPlace,
+                               StartDateTime = b.StartDateTime,
+                               EndDateTime = b.EndDateTime,
+                               NoOfPassenger = b.NoOfPassenger,
+                               BookingDate = b.BookingDate,
+                               TravelClass = b.TravelClass,
+                               Meal = b.Meal,
+                               TicketCharges = b.TicketCharges,
+                               PNR = b.PNR,
+                               PassengerDetails = (from p in context.PassengerDetail
+                                                   where p.BookingId==b.BookingId
+                                                   select new PassengerDetail 
+                                                   { 
+                                                       Pid = p.Pid,
+                                                       BookingId = p.BookingId,
+                                                       Name = p.Name,
+                                                       Age = p.Age,
+                                                       Gender = p.Gender,
+                                                       SeatNo = p.SeatNo
+                                                   }).ToList()
+                                     }).FirstOrDefault();
+            return booking;
         }
-
-        public IEnumerable<BookingDetail> GetBookingDetailsByBookingId(int bookingId)
+        public BookingDetail GetBookingDetailsByPnr(string pnr)
         {
-            IEnumerable<BookingDetail> details = context.BookingDetails;
-            return details.Where(n => n.BookingId == bookingId);
+            var booking = (from b in context.BookingDetail
+                           where b.PNR == pnr
+                           select new BookingDetail
+                           {
+                               BookingId = b.BookingId,
+                               InventoryId = b.InventoryId,
+                               FlightNumber = b.FlightNumber,
+                               UserName = b.UserName,
+                               Email = b.Email,
+                               FromPlace = b.FromPlace,
+                               ToPlace = b.ToPlace,
+                               StartDateTime = b.StartDateTime,
+                               EndDateTime = b.EndDateTime,
+                               NoOfPassenger = b.NoOfPassenger,
+                               BookingDate = b.BookingDate,
+                               TravelClass = b.TravelClass,
+                               Meal = b.Meal,
+                               TicketCharges = b.TicketCharges,
+                               PNR = b.PNR,
+                               PassengerDetails = (from p in context.PassengerDetail
+                                                   where p.BookingId == b.BookingId
+                                                   select new PassengerDetail
+                                                   {
+                                                       Pid = p.Pid,
+                                                       BookingId = p.BookingId,
+                                                       Name = p.Name,
+                                                       Age = p.Age,
+                                                       Gender = p.Gender,
+                                                       SeatNo = p.SeatNo
+                                                   }).ToList()
+                           }).FirstOrDefault();
+            return booking;
         }
-
-        public BookingDetail UpdateBooking(BookingDetail changebooking)
+        public BookingDetail GetBookingDetailsByEmail(string email)
         {
-            var details = context.BookingDetails.Attach(changebooking);
-            details.State = EntityState.Modified;
-            context.SaveChanges();
-            return changebooking;
-        }
+            var booking = (from b in context.BookingDetail
+                           where b.Email == email
+                           select new BookingDetail
+                           {
+                               BookingId = b.BookingId,
+                               InventoryId = b.InventoryId,
+                               FlightNumber = b.FlightNumber,
+                               UserName = b.UserName,
+                               Email = b.Email,
+                               FromPlace = b.FromPlace,
+                               ToPlace = b.ToPlace,
+                               StartDateTime = b.StartDateTime,
+                               EndDateTime = b.EndDateTime,
+                               NoOfPassenger = b.NoOfPassenger,
+                               BookingDate = b.BookingDate,
+                               TravelClass = b.TravelClass,
+                               Meal = b.Meal,
+                               TicketCharges = b.TicketCharges,
+                               PNR = b.PNR,
+                               PassengerDetails = (from p in context.PassengerDetail
+                                                   where p.BookingId == b.BookingId
+                                                   select new PassengerDetail
+                                                   {
+                                                       Pid = p.Pid,
+                                                       BookingId = p.BookingId,
+                                                       Name = p.Name,
+                                                       Age = p.Age,
+                                                       Gender = p.Gender,
+                                                       SeatNo = p.SeatNo
+                                                   }).ToList()
+                           }).FirstOrDefault();
+            return booking;
+        }        
 
         public IEnumerable<InventoryDetail> SearchFlight(SearchFlightDetail detail)
         {
@@ -78,9 +155,9 @@ namespace FlightBookingService.Models
             if (!detail.IsRoundTrip)
             {
                 allDetails = context.InventoryDetail.Where(n => n.FromPlace == detail.From && n.ToPlace == detail.To && (n.ScheduledDays == "Daily" || (n.ScheduledDays == detail.StartTime.DayOfWeek.ToString() && n.StartDateTime.Date == detail.StartTime.Date)));
-                foreach(var d in allDetails)
+                foreach (var d in allDetails)
                 {
-                    if(d.ScheduledDays =="Daily")
+                    if (d.ScheduledDays == "Daily")
                     {
                         d.StartDateTime = detail.StartTime.Date + d.StartDateTime.TimeOfDay;
                         d.EndDateTime = detail.StartTime.Date + d.EndDateTime.TimeOfDay;
@@ -95,7 +172,7 @@ namespace FlightBookingService.Models
                     if (d.ScheduledDays == "Daily")
                     {
                         d.StartDateTime = detail.StartTime.Date + d.StartDateTime.TimeOfDay;
-                        DateTime diff = 
+                        DateTime diff =
                         d.EndDateTime = detail.StartTime.Date + d.EndDateTime.TimeOfDay;
                     }
                 }

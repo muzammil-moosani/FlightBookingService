@@ -1,4 +1,5 @@
-﻿using InventoryManagementService.Models;
+﻿using FlightBookingService.Models;
+using InventoryManagementService.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace InventoryManagementService.Controllers
 {
+    [Route("api/[controller]")]
     public class InventoryController : Controller
     {
         private IInventoryRepository inventory;
@@ -16,35 +18,30 @@ namespace InventoryManagementService.Controllers
             inventory = _inventory;
         }
 
-        [HttpGet]
-        [Route("Inventory/GetInventoryById")]
+        [HttpGet("GetInventoryById")]
         public InventoryDetail GetInventoryById(int inventoryId)
         {
             return inventory.GetInventoryById(inventoryId);
         }
         [HttpGet]
-        [Route("Inventory/GetAllInventories")]
         public IEnumerable<InventoryDetail> GetAllInventories()
         {
             return inventory.GetAllInventories();
         }
 
-        [HttpPost]
-        [Route("Inventory/AddInventory")]
+        [HttpPost("AddInventory")]
         public InventoryDetail AddInventory([FromBody] InventoryDetail detail)
         {
             return inventory.AddInventory(detail);
         }
 
-        [HttpDelete]
-        [Route("Inventory/DeleteInventory")]
+        [HttpDelete("DeleteInventory")]
         public InventoryDetail DeleteInventory(int inventoryId)
         {
             return inventory.DeleteInventory(inventoryId);
         }
 
-        [HttpPut]
-        [Route("Inventory/UpdateInventory")]
+        [HttpPut("UpdateInventory")]
         public InventoryDetail UpdateInventory([FromBody] InventoryDetail changeInventory)
         {
             return inventory.UpdateInventory(changeInventory);

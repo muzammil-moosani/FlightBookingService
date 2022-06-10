@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AirlineService
+namespace UserService
 {
     public class Program
     {
@@ -20,7 +20,7 @@ namespace AirlineService
         public static IWebHost BuildWebHost(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
             .UseStartup<Startup>()
-            .UseUrls("http://localhost:7002")
+            .UseUrls("http://localhost:7001")
             .Build();
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

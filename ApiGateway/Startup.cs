@@ -16,43 +16,41 @@ namespace ApiGateway
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
         public Startup(IHostingEnvironment env)
         {
-            //Configuration = configuration;
             var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder();
             builder.SetBasePath(env.ContentRootPath)
-                .AddJsonFile("configuration.json", optional: false, reloadOnChange: true)
-                .AddEnvironmentVariables();
+                   //add configuration.json  
+                   .AddJsonFile("configuration.json", optional: false, reloadOnChange: true)
+                   .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
-        
+
+        public IConfigurationRoot Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            Action<ConfigurationBuilderCachePart> setting = (xx) =>
-              {
-                  xx.WithMicrosoftLogging(yy =>
-                  {
-                      yy.AddConsole(LogLevel.Debug);
-                  }).WithDictionaryHandle();
+            Action<ConfigurationBuilderCachePart> settings = (x) =>
+            {
+                x.WithMicrosoftLogging(log =>
+                {
+                    log.AddConsole(LogLevel.Debug);
 
-              };
-            services.AddOcelot((IConfigurationRoot)Configuration, setting);
-            //services.AddOcelot(Configuration);
+                }).WithDictionaryHandle();
+            };
+            services.AddOcelot(Configuration, settings);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
             await app.UseOcelot();
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello APIGateway World!");
             });
         }
+        
     }
 }

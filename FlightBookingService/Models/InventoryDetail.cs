@@ -5,13 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InventoryManagementService.Models
+namespace FlightBookingService.Models
 {
     public class InventoryDetail
     {
         [Key]
         public int InventoryId { get; set; }
         public int AirlineId { get; set; }
+        [ForeignKey("AirlineId")]
+        public virtual AirlineDetail AirlineDetail { get; set; }
         public int FlightNumber { get; set; }
         public string FromPlace { get; set; }
         public string ToPlace { get; set; }

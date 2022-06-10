@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,9 +12,9 @@ namespace FlightBookingService.Models
         [Key]
         public int BookingId { get; set; }
         public int InventoryId { get; set; }
-        public int AirlineId { get; set; }
-        public int FlightNumber { get; set; }
-        public int UserId { get; set; }
+        [ForeignKey("InventoryId")]
+        public virtual InventoryDetail InventoryDetail { get; set; }
+        public int FlightNumber { get; set; }        
         public string UserName { get; set; }
         public string Email { get; set; }
         public string FromPlace { get; set; }
@@ -25,5 +26,7 @@ namespace FlightBookingService.Models
         public string TravelClass { get; set; }
         public string Meal { get; set; }
         public double TicketCharges { get; set; }
+        public string PNR { get; set; }
+        public List<PassengerDetail> PassengerDetails { get; set; }
     }
 }

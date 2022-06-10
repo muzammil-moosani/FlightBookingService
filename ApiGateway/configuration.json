@@ -1,27 +1,40 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/api/user",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44333
-        }
-      ],
-          "UpstreamPathTemplate": "/getUser",
-          "UpstreamHttpMethod": [ "Get" ]
-        },
-    {
-      "DownstreamPathTemplate": "/api/user/GetUserByUserId/{userId}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/user/register",
+      "DownstreamScheme": "http",
       "DownstreamHost": "localhost",
-      "DownstreamPort": 44333,
-      "UpstreamPathTemplate": "/GetUserByUserId/{userId}",
+      "DownstreamPort": 7001,
+      "UpstreamPathTemplate": "/registeruser",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/user/login",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7001,
+      "UpstreamPathTemplate": "/loginuser",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/airline",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7002,
+      "UpstreamPathTemplate": "/airline",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/airline/GetAirlineById/{airlineId}",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7002,
+      "UpstreamPathTemplate": "/GetAirlineById/{airlineId}",
       "UpstreamHttpMethod": [ "Get" ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:25960"
+    "RequestIdKey": "OcRequestId",
+    "AdministrationPath": "/administration"
   }
 }

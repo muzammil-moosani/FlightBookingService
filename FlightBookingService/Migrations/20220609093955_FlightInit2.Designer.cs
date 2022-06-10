@@ -4,14 +4,16 @@ using FlightBookingService.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlightBookingService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220609093955_FlightInit2")]
+    partial class FlightInit2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,8 +64,6 @@ namespace FlightBookingService.Migrations
 
                     b.Property<int>("NoOfPassenger");
 
-                    b.Property<string>("PNR");
-
                     b.Property<DateTime>("StartDateTime");
 
                     b.Property<double>("TicketCharges");
@@ -72,11 +72,15 @@ namespace FlightBookingService.Migrations
 
                     b.Property<string>("TravelClass");
 
+                    b.Property<int>("UserId");
+
                     b.Property<string>("UserName");
 
                     b.HasKey("BookingId");
 
                     b.HasIndex("InventoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("BookingDetail");
                 });
@@ -132,7 +136,7 @@ namespace FlightBookingService.Migrations
 
                     b.Property<string>("Gender");
 
-                    b.Property<string>("Name");
+                    b.Property<int>("Name");
 
                     b.Property<int>("SeatNo");
 
@@ -143,11 +147,37 @@ namespace FlightBookingService.Migrations
                     b.ToTable("PassengerDetail");
                 });
 
+            modelBuilder.Entity("FlightBookingService.Models.UserDetail", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<bool>("IsAdmin");
+
+                    b.Property<string>("MobileNumber");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserDetail");
+                });
+
             modelBuilder.Entity("FlightBookingService.Models.BookingDetail", b =>
                 {
                     b.HasOne("FlightBookingService.Models.InventoryDetail", "InventoryDetail")
                         .WithMany()
                         .HasForeignKey("InventoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FlightBookingService.Models.UserDetail", "UserDetail")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

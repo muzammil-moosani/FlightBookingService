@@ -34,7 +34,11 @@ namespace AirlineService.Models
 
         public AirlineDetail GetAirlineById(int airlineId)
         {
-            return context.AirlineDetail.Where(n => n.AirlineId == airlineId && n.IsBlocked == false).First();
+            IEnumerable<AirlineDetail> detail = context.AirlineDetail.Where(n => n.AirlineId == airlineId && n.IsBlocked == false);
+            if (detail.Any())
+                return detail.First();
+            else
+                return new AirlineDetail();
         }
 
         public IEnumerable<AirlineDetail> GetAllAirlines()
