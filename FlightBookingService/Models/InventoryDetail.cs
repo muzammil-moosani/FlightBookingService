@@ -14,6 +14,8 @@ namespace FlightBookingService.Models
         public int AirlineId { get; set; }
         [ForeignKey("AirlineId")]
         public virtual AirlineDetail AirlineDetail { get; set; }
+        [NotMapped]
+        public string AirlineName { get; set; }
         public int FlightNumber { get; set; }
         public string FromPlace { get; set; }
         public string ToPlace { get; set; }

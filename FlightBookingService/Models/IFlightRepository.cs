@@ -10,7 +10,7 @@ namespace FlightBookingService.Models
         IEnumerable<InventoryDetail> SearchFlight(SearchFlightDetail detail);
         string AddBooking(BookingDetail booking);
         BookingDetail GetBookingDetailsByBookingId(int bookingId);
-        BookingDetail GetBookingDetailsByEmail(string email);
+        IEnumerable<BookingDetail> GetBookingDetailsByName(string name);
         BookingDetail GetBookingDetailsByPnr(string pnr);
         BookingDetail DeleteBooking(string pnr);
     }

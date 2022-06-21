@@ -34,7 +34,7 @@ namespace AirlineService.Models
 
         public AirlineDetail GetAirlineById(int airlineId)
         {
-            IEnumerable<AirlineDetail> detail = context.AirlineDetail.Where(n => n.AirlineId == airlineId && n.IsBlocked == false);
+            IEnumerable<AirlineDetail> detail = context.AirlineDetail.Where(n => n.AirlineId == airlineId);
             if (detail.Any())
                 return detail.First();
             else
@@ -43,7 +43,7 @@ namespace AirlineService.Models
 
         public IEnumerable<AirlineDetail> GetAllAirlines()
         {
-            return context.AirlineDetail.Where(n => n.IsBlocked == false);
+            return context.AirlineDetail;
         }
 
         public AirlineDetail UpdateAirline(AirlineDetail changeAirline)
@@ -60,6 +60,18 @@ namespace AirlineService.Models
             if(airline != null)
             {
                 airline.IsBlocked = true;
+                context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool UnblockAirline(int airlineId)
+        {
+            var airline = context.AirlineDetail.Where(n => n.AirlineId == airlineId).FirstOrDefault();
+            if (airline != null)
+            {
+                airline.IsBlocked = false;
                 context.SaveChanges();
                 return true;
             }

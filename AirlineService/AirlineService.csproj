@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FlightBookingService\FlightBookingService.csproj" />
+    <ProjectReference Include="..\UserService\UserService.csproj" />
   </ItemGroup>
 
 </Project>

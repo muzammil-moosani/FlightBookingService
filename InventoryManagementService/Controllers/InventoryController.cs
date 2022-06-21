@@ -1,5 +1,7 @@
 ﻿using FlightBookingService.Models;
 using InventoryManagementService.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace InventoryManagementService.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class InventoryController : Controller
     {
         private IInventoryRepository inventory;
@@ -18,7 +22,8 @@ namespace InventoryManagementService.Controllers
             inventory = _inventory;
         }
 
-        [HttpGet("GetInventoryById")]
+        [HttpGet]
+        [Route("GetInventoryById")]
         public InventoryDetail GetInventoryById(int inventoryId)
         {
             return inventory.GetInventoryById(inventoryId);

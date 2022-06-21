@@ -13,6 +13,8 @@ namespace FlightBookingService.Models
         public int BookingId { get; set; }
         public int InventoryId { get; set; }
         [ForeignKey("InventoryId")]
+        [NotMapped]
+        public string AirlineName { get; set; }
         public virtual InventoryDetail InventoryDetail { get; set; }
         public int FlightNumber { get; set; }        
         public string UserName { get; set; }
@@ -28,5 +30,7 @@ namespace FlightBookingService.Models
         public double TicketCharges { get; set; }
         public string PNR { get; set; }
         public List<PassengerDetail> PassengerDetails { get; set; }
+        //[NotMapped]
+        //public string Passengers { get; set; }
     }
 }

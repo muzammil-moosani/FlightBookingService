@@ -22,9 +22,5 @@ namespace AirlineService
             .UseStartup<Startup>()
             .UseUrls("http://localhost:7002")
             .Build();
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
     }
 }

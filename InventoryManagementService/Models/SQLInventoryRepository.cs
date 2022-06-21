@@ -24,7 +24,7 @@ namespace InventoryManagementService.Models
         public InventoryDetail DeleteInventory(int inventoryId)
         {
             InventoryDetail inventoryDetail = context.InventoryDetail.Find(inventoryId);
-            if(inventoryDetail != null)
+            if (inventoryDetail != null)
             {
                 context.Remove(inventoryDetail);
                 context.SaveChanges();
@@ -34,7 +34,29 @@ namespace InventoryManagementService.Models
 
         public IEnumerable<InventoryDetail> GetAllInventories()
         {
-            return context.InventoryDetail;
+            var details = context.InventoryDetail.
+                Join(context.AirlineDetail, a => a.AirlineId, i => i.AirlineId,
+                (a, i) => new { a, i }).
+                Select( m=> new InventoryDetail
+                {
+                    InventoryId = m.a.InventoryId,
+                    AirlineId = m.a.AirlineId,
+                    AirlineName = m.i.AirlineName,
+                    FlightNumber = m.a.FlightNumber,
+                    FromPlace = m.a.FromPlace,
+                    ToPlace = m.a.ToPlace,
+                    StartDateTime = m.a.StartDateTime,
+                    EndDateTime = m.a.EndDateTime,
+                    ScheduledDays = m.a.ScheduledDays,
+                    Instrument = m.a.Instrument,
+                    NoOfBusinessSeats = m.a.NoOfBusinessSeats,
+                    NoOfNonBusinessSeats = m.a.NoOfNonBusinessSeats,
+                    TicketCharges = m.a.TicketCharges,
+                    NoOfRows = m.a.NoOfRows,
+                    Meal = m.a.Meal
+                });
+
+            return details;
         }
 
         public InventoryDetail GetInventoryById(int inventoryId)

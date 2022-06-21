@@ -22,9 +22,5 @@ namespace UserService
             .UseStartup<Startup>()
             .UseUrls("http://localhost:7001")
             .Build();
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
     }
 }

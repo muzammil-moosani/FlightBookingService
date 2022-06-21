@@ -1,5 +1,7 @@
 ﻿using AirlineService.Models;
 using FlightBookingService.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
@@ -9,7 +11,10 @@ using System.Threading.Tasks;
 
 namespace AirlineService.Controllers
 {
+    
+    [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AirlineController : Controller
     {
         private IAirlineRepository airline;
@@ -19,13 +24,12 @@ namespace AirlineService.Controllers
             airline = _airline;
         }
 
-        [HttpGet]
-        [Route("GetAirlineById")]
+        [HttpGet("GetAirlineById")]
         public AirlineDetail GetAirlineById(int airlineId)
         {
             return airline.GetAirlineById(airlineId);
         }
-        [HttpGet]
+        [HttpGet]        
         public IEnumerable<AirlineDetail> GetAllAirlines()
         {
             return airline.GetAllAirlines();
@@ -53,6 +57,12 @@ namespace AirlineService.Controllers
         public bool BlockAirline(int airlineId)
         {
             return airline.BlockAirline(airlineId);
+        }
+
+        [HttpPut("UnBlockAirline")]
+        public bool UnblockAirline(int airlineId)
+        {
+            return airline.UnblockAirline(airlineId);
         }
 
     }

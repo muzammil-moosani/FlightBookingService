@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FlightBookingService.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace FlightBookingService.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class FlightController : Controller
     {
         private IFlightRepository flight;
@@ -17,7 +21,7 @@ namespace FlightBookingService.Controllers
             flight = _flight;
         }
 
-        [HttpGet("SearchFlight")]
+        [HttpPost("SearchFlight")]
         public IEnumerable<InventoryDetail> SearchFlight([FromBody] SearchFlightDetail detail)
         {
             return flight.SearchFlight(detail);
@@ -33,10 +37,10 @@ namespace FlightBookingService.Controllers
         {
             return flight.GetBookingDetailsByPnr(pnr);
         }
-        [HttpGet("GetBookingDetailsByEmail")]
-        public BookingDetail GetBookingDetailsByEmail(string email)
+        [HttpGet("GetBookingDetailsByName")]
+        public IEnumerable<BookingDetail> GetBookingDetailsByName(string name)
         {
-            return flight.GetBookingDetailsByEmail(email);
+            return flight.GetBookingDetailsByName(name);
         }
         [HttpPost("AddBooking")]
         public string AddBooking([FromBody]BookingDetail detail)

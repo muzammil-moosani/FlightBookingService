@@ -17,6 +17,14 @@
       "UpstreamHttpMethod": [ "Post" ]
     },
     {
+      "DownstreamPathTemplate": "/api/user/register-admin",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7001,
+      "UpstreamPathTemplate": "/registeradmin",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/airline",
       "DownstreamScheme": "http",
       "DownstreamHost": "localhost",
@@ -25,12 +33,140 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/api/airline/GetAirlineById/{airlineId}",
+      "DownstreamPathTemplate": "/api/airline/GetAirlineById",
       "DownstreamScheme": "http",
       "DownstreamHost": "localhost",
       "DownstreamPort": 7002,
-      "UpstreamPathTemplate": "/GetAirlineById/{airlineId}",
+      "UpstreamPathTemplate": "/getairlinebyid",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/airline/AddAirline",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7002,
+      "UpstreamPathTemplate": "/addairline",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/airline/DeleteAirline",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7002,
+      "UpstreamPathTemplate": "/deleteairline",
+      "UpstreamHttpMethod": [ "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/airline/UpdateAirline",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7002,
+      "UpstreamPathTemplate": "/updateairline",
+      "UpstreamHttpMethod": [ "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/airline/BlockAirline",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7002,
+      "UpstreamPathTemplate": "/blockairline",
+      "UpstreamHttpMethod": [ "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/airline/UnBlockAirline",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7002,
+      "UpstreamPathTemplate": "/unblockairline",
+      "UpstreamHttpMethod": [ "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/flight/SearchFlight",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7003,
+      "UpstreamPathTemplate": "/searchflight",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/flight/AddBooking",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7003,
+      "UpstreamPathTemplate": "/addbooking",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/flight/GetBookingDetailsByBookingId",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7003,
+      "UpstreamPathTemplate": "/getbookingdetailsbybookingid",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/flight/GetBookingDetailsByPnr",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7003,
+      "UpstreamPathTemplate": "/getbookingdetailsbypnr",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/flight/GetBookingDetailsByName",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7003,
+      "UpstreamPathTemplate": "/getbookingdetailsbyname",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/flight/DeleteBooking",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7003,
+      "UpstreamPathTemplate": "/deletebooking",
+      "UpstreamHttpMethod": [ "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/inventory",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7004,
+      "UpstreamPathTemplate": "/inventory",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/inventory/GetInventoryById",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7004,
+      "UpstreamPathTemplate": "/getinventorybyid",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/inventory/AddInventory",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7004,
+      "UpstreamPathTemplate": "/addinventory",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/inventory/DeleteInventory",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7004,
+      "UpstreamPathTemplate": "/deleteinventory",
+      "UpstreamHttpMethod": [ "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/inventory/UpdateInventory",
+      "DownstreamScheme": "http",
+      "DownstreamHost": "localhost",
+      "DownstreamPort": 7004,
+      "UpstreamPathTemplate": "/updateinventory",
+      "UpstreamHttpMethod": [ "Put" ]
     }
   ],
   "GlobalConfiguration": {

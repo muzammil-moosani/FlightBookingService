@@ -31,6 +31,13 @@ namespace ApiGateway
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => {
+                options.AddDefaultPolicy(builder => {
+                    builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
             Action<ConfigurationBuilderCachePart> settings = (x) =>
             {
                 x.WithMicrosoftLogging(log =>
@@ -45,6 +52,7 @@ namespace ApiGateway
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
             await app.UseOcelot();
             app.Run(async (context) =>
             {

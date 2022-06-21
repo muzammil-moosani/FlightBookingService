@@ -14,5 +14,7 @@ namespace FlightBookingService.Models
         AirlineDetail UpdateAirline(AirlineDetail changeAirline);
         AirlineDetail DeleteAirline(int airlineId);
         bool BlockAirline(int airlineId);
+        bool UnblockAirline(int airlineId);
     }
 }
+
